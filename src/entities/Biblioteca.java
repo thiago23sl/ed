@@ -114,6 +114,6 @@ public class Biblioteca {
     }
 
     public List<Livro> getLivros() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    return livros;
+}
 }

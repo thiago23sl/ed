@@ -33,15 +33,18 @@ public class Main {
         biblioteca.recomendarLivroComPeso("Padrões de Projeto", "Design Patterns em Java", 1);
         biblioteca.recomendarLivroComPeso("Arquitetura Limpa", "The Pragmatic Programmer", 3);
 
-        // Conectar todos os livros entre si com peso 1
+        // Conectar todos os livros entre si 
         List<Livro> livros = biblioteca.getLivros();
+        Random random = new Random();
+
         for (int i = 0; i < livros.size(); i++) {
             for (int j = i + 1; j < livros.size(); j++) {
                 Livro livro1 = livros.get(i);
                 Livro livro2 = livros.get(j);
-                biblioteca.recomendarLivroComPeso(livro1.getnomeLivro(), livro2.getnomeLivro(), 1);
-            }
-        }
+                int peso = random.nextInt(30) + 1; 
+                biblioteca.recomendarLivroComPeso(livro1.getnomeLivro(), livro2.getnomeLivro(), peso);
+    }
+}
 
         while (true) {
             System.out.println("\n### GERENCIAMENTO DE LIVROS DA BIBLIOTECA ###");

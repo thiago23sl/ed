@@ -11,19 +11,29 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int escolha = 0;
 
-            // Livros de programação pré-cadastrados
-            biblioteca.adicionarLivros("Clean Code", "Robert C. Martin", 2008);
-            biblioteca.adicionarLivros("Código Limpo", "Robert C. Martin", 2009);
-            biblioteca.adicionarLivros("Estruturas de Dados e Algoritmos em Java", "Robert Lafore", 2002);
-            biblioteca.adicionarLivros("Padrões de Projeto", "Erich Gamma", 1994);
-            biblioteca.adicionarLivros("Entendendo Algoritmos", "Aditya Bhargava", 2016);
-            biblioteca.adicionarLivros("Java: Como Programar", "Deitel & Deitel", 2014);
-            biblioteca.adicionarLivros("Refatoração", "Martin Fowler", 1999);
-            biblioteca.adicionarLivros("Arquitetura Limpa", "Robert C. Martin", 2017);
-            biblioteca.adicionarLivros("The Pragmatic Programmer", "Andrew Hunt e David Thomas", 1999);
-            biblioteca.adicionarLivros("Design Patterns em Java", "Steven John Metsker", 2002);
+        // Livros de programação pré-cadastrados
+        biblioteca.adicionarLivros("Clean Code", "Robert C. Martin", 2008);
+        biblioteca.adicionarLivros("Código Limpo", "Robert C. Martin", 2009);
+        biblioteca.adicionarLivros("Estruturas de Dados e Algoritmos em Java", "Robert Lafore", 2002);
+        biblioteca.adicionarLivros("Padrões de Projeto", "Erich Gamma", 1994);
+        biblioteca.adicionarLivros("Entendendo Algoritmos", "Aditya Bhargava", 2016);
+        biblioteca.adicionarLivros("Java: Como Programar", "Deitel & Deitel", 2014);
+        biblioteca.adicionarLivros("Refatoração", "Martin Fowler", 1999);
+        biblioteca.adicionarLivros("Arquitetura Limpa", "Robert C. Martin", 2017);
+        biblioteca.adicionarLivros("The Pragmatic Programmer", "Andrew Hunt e David Thomas", 1999);
+        biblioteca.adicionarLivros("Design Patterns em Java", "Steven John Metsker", 2002);
 
-                while (true) {
+        // Recomendações com pesos
+        biblioteca.recomendarLivroComPeso("Clean Code", "Código Limpo", 1);
+        biblioteca.recomendarLivroComPeso("Clean Code", "Arquitetura Limpa", 2);
+        biblioteca.recomendarLivroComPeso("Código Limpo", "Refatoração", 1);
+        biblioteca.recomendarLivroComPeso("Java: Como Programar", "Estruturas de Dados e Algoritmos em Java", 2);
+        biblioteca.recomendarLivroComPeso("Estruturas de Dados e Algoritmos em Java", "Entendendo Algoritmos", 1);
+        biblioteca.recomendarLivroComPeso("Refatoração", "Padrões de Projeto", 2);
+        biblioteca.recomendarLivroComPeso("Padrões de Projeto", "Design Patterns em Java", 1);
+        biblioteca.recomendarLivroComPeso("Arquitetura Limpa", "The Pragmatic Programmer", 3);
+
+        while (true) {
             System.out.println("\n### GERENCIAMENTO DE LIVROS DA BIBLIOTECA ###");
             System.out.println("[1] ADICIONAR LIVRO");
             System.out.println("[2] REMOVER LIVRO");
@@ -48,21 +58,18 @@ public class Main {
             }
 
             System.out.println();
-            sc.nextLine(); // Consumir a quebra de linha do nextInt
+            sc.nextLine(); // Consumir quebra de linha do nextInt
 
             switch (escolha) {
                 case 1:
                     try {
                         System.out.print("QUAL O TÍTULO DO LIVRO: ");
                         String titulo = sc.nextLine();
-
                         System.out.print("QUAL O AUTOR DO LIVRO: ");
                         String autor = sc.nextLine();
-
                         System.out.print("QUAL O ANO DE PUBLICAÇÃO DO LIVRO: ");
                         int ano = sc.nextInt();
                         sc.nextLine();
-
                         biblioteca.adicionarLivros(titulo, autor, ano);
                     } catch (InputMismatchException e) {
                         System.out.println("ANO INVÁLIDO! DIGITE UM NÚMERO.");
@@ -126,24 +133,19 @@ public class Main {
                 case 9:
                     System.out.print("DIGITE O TÍTULO DO LIVRO BASE: ");
                     String tituloBase = sc.nextLine();
-
                     System.out.print("DIGITE O TÍTULO DA PRIMEIRA RECOMENDAÇÃO: ");
                     String primeiraRecomendacao = sc.nextLine();
-
                     System.out.print("DIGITE O TÍTULO DA SEGUNDA RECOMENDAÇÃO: ");
                     String segundaRecomendacao = sc.nextLine();
-
-                    System.out.print("PESO ENTRE OS LIVROS (quanto mais próximo, menor o número): ");
+                    System.out.print("PESO ENTRE OS LIVROS: ");
                     int peso = sc.nextInt();
                     sc.nextLine();
-
                     boolean sucesso1 = biblioteca.recomendarLivroComPeso(tituloBase, primeiraRecomendacao, peso);
                     boolean sucesso2 = biblioteca.recomendarLivroComPeso(tituloBase, segundaRecomendacao, peso);
-
                     if (sucesso1 && sucesso2) {
                         System.out.println("AS DUAS RECOMENDAÇÕES FORAM ADICIONADAS COM SUCESSO!");
                     } else {
-                        System.out.println("ERRO AO ADICIONAR UMA OU AMBAS AS RECOMENDAÇÕES..");
+                        System.out.println("ERRO AO ADICIONAR UMA OU AMBAS AS RECOMENDAÇÕES.");
                     }
                     break;
 
@@ -160,12 +162,10 @@ public class Main {
                     System.out.print("DIGITE O TÍTULO DO LIVRO DE ORIGEM: ");
                     String origemTitulo = sc.nextLine();
                     Livro origemLivro = biblioteca.procurarlivros(origemTitulo);
-
                     if (origemLivro == null) {
                         System.out.println("LIVRO DE ORIGEM NÃO ENCONTRADO.");
                         break;
                     }
-
                     Map<Livro, Integer> distancias = biblioteca.getGrafo().dijkstra(origemLivro);
                     System.out.println("CAMINHOS MAIS PRÓXIMOS A PARTIR DE \"" + origemTitulo + "\":");
                     for (Map.Entry<Livro, Integer> entry : distancias.entrySet()) {

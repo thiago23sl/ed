@@ -112,4 +112,8 @@ public class Biblioteca {
     public Grafo getGrafo() {
         return grafo;
     }
+
+    public List<Livro> getLivros() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

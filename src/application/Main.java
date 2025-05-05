@@ -11,7 +11,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int escolha = 0;
 
-        // Livros de programação pré-cadastrados
+                // Livros de programação pré-cadastrados
         biblioteca.adicionarLivros("Clean Code", "Robert C. Martin", 2008);
         biblioteca.adicionarLivros("Código Limpo", "Robert C. Martin", 2009);
         biblioteca.adicionarLivros("Estruturas de Dados e Algoritmos em Java", "Robert Lafore", 2002);
@@ -23,7 +23,7 @@ public class Main {
         biblioteca.adicionarLivros("The Pragmatic Programmer", "Andrew Hunt e David Thomas", 1999);
         biblioteca.adicionarLivros("Design Patterns em Java", "Steven John Metsker", 2002);
 
-        // Recomendações com pesos
+        // Recomendações manuais com pesos
         biblioteca.recomendarLivroComPeso("Clean Code", "Código Limpo", 1);
         biblioteca.recomendarLivroComPeso("Clean Code", "Arquitetura Limpa", 2);
         biblioteca.recomendarLivroComPeso("Código Limpo", "Refatoração", 1);
@@ -32,6 +32,17 @@ public class Main {
         biblioteca.recomendarLivroComPeso("Refatoração", "Padrões de Projeto", 2);
         biblioteca.recomendarLivroComPeso("Padrões de Projeto", "Design Patterns em Java", 1);
         biblioteca.recomendarLivroComPeso("Arquitetura Limpa", "The Pragmatic Programmer", 3);
+
+        // Conectar todos os livros entre si com peso 1
+        List<Livro> livros = biblioteca.getLivros(); // <- Você precisa ter esse método na sua classe Biblioteca
+        for (int i = 0; i < livros.size(); i++) {
+            for (int j = i + 1; j < livros.size(); j++) {
+                Livro livro1 = livros.get(i);
+                Livro livro2 = livros.get(j);
+                biblioteca.recomendarLivroComPeso(livro1.getnomeLivro(), livro2.getnomeLivro(), 1);
+            }
+        }
+
 
         while (true) {
             System.out.println("\n### GERENCIAMENTO DE LIVROS DA BIBLIOTECA ###");
